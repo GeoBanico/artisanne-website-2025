@@ -1,0 +1,28 @@
+<div class="my-4 mx-6">
+    <div class="flex flex-wrap gap-5 justify-center">
+        <div *ngFor="let service of artisanneInfo; let i = index" class="w-[300px]">
+            <nz-card nzHoverable [nzCover]="coverTemplate" class="h-full" (click)="openModal(i)">
+                <nz-card-meta [nzTitle]="service.category" [nzDescription]="service.shortDescription"></nz-card-meta>
+            </nz-card>
+            <ng-template #coverTemplate>
+                <div class="h-[175px] w-full">
+                    <img [alt]="service.category" [src]="service.url" class="h-full w-full object-cover" />
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<nz-modal [(nzVisible)]="showModal" nzCentered (nzOnCancel)="closeModal()" [nzTitle]="" [nzFooter]="null" [nzClosable]="false" [nzWidth]="400">
+    <ng-container *nzModalContent>
+        <div class="overflow-auto">
+            <div class="h-[175px] w-full">
+                <img [alt]="showServiceInfo.category" [src]="showServiceInfo.url" class="h-full w-full object-cover"/>
+            </div>
+            <h1 class="modal-header">{{showServiceInfo.category}}</h1>
+            <ul class="grid grid-cols-2 gap-1">
+                <li *ngFor="let offer of showServiceInfo.offers">{{offer}}</li>
+            </ul>
+        </div>
+    </ng-container>
+  </nz-modal>

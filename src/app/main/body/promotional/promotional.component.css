@@ -1,0 +1,16 @@
+.artisanne-slogan {
+    font-weight: bolder;
+    font-style: normal;
+}
+
+.artisanne-slogan-highlight {
+    color: #07d0fd;
+}
+
+.est-style {
+    color: #6d4d33;
+}
+
+.location:hover {
+    color: #07d0fd; 
+}

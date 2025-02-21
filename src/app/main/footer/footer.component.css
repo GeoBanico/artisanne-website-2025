@@ -1,0 +1,14 @@
+.header-tags {
+    font-weight: bold;
+    font-size: 28px;
+    color: white;
+}
+
+.icon {
+    font-size: 28px;
+    color: white;
+}
+
+.icon:hover {
+    color: #07d0fd; 
+}
