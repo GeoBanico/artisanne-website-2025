@@ -20,11 +20,15 @@
     "@angular/router": "^19.1.0",
     "@tailwindcss/postcss": "^4.0.6",
     "core-js": "^3.40.0",
+    "es6-promise": "^4.2.8",
+    "intersection-observer": "^0.12.2",
     "ng-zorro-antd": "^19.0.2",
     "postcss": "^8.5.2",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.0.6",
     "tslib": "^2.3.0",
+    "url-polyfill": "^1.1.13",
+    "whatwg-fetch": "^3.6.20",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
@@ -40,5 +44,9 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.7.2"
-  }
+  },
+  "browserslist": [
+    "> 0.2%",
+    "not dead"
+  ]
 }
