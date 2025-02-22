@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { NZ_ICONS, NzIconModule } from 'ng-zorro-antd/icon';
 import { UserOutline, LockOutline, IdcardOutline, LoginOutline } from '@ant-design/icons-angular/icons';
@@ -46,7 +47,8 @@ import { AuthGuard } from './guard/auth.guard';
   ],
   providers: [
     AuthGuard,
-    { provide: NZ_ICONS, useValue: icons }
+    { provide: NZ_ICONS, useValue: icons },
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })
