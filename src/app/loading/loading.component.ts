@@ -63,7 +63,9 @@ export class LoadingComponent implements OnInit {
       services: await this.loadSheetsServices()
     };
 
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.sheetInfo));
+    try {
+      localStorage.setItem(this.localStorageKey, JSON.stringify(this.sheetInfo));
+    } catch {}
   }
 
   // FETCH SERVICES
