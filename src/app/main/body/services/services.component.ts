@@ -15,8 +15,6 @@ export class ServicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.artisanneInfo = JSON.parse(localStorage.getItem(this.localStorageKey)!).services;
-
-    console.log(this.artisanneInfo);
   }
 
   openModal(index: number): void {

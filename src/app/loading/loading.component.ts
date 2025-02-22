@@ -54,8 +54,6 @@ export class LoadingComponent implements OnInit {
       services: await this.loadSheetsServices()
     };
 
-    console.log(this.sheetInfo);
-
     localStorage.setItem(this.localStorageKey, JSON.stringify(this.sheetInfo));
   }
 
