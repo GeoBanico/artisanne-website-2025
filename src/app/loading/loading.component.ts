@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
+import { InSiteStorageService } from '../service/in-site-storage.service';
 
 @Component({
   selector: 'app-loading',
@@ -17,26 +18,34 @@ export class LoadingComponent implements OnInit {
   
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private inSiteStorage: InSiteStorageService
   ) {}
 
   async ngOnInit(): Promise<void> {
-    const artisanneInfo = localStorage.getItem(this.localStorageKey);
+    try {
+      const artisanneInfo = localStorage.getItem(this.localStorageKey);
 
-    if(artisanneInfo) {
-      const sheetInfoLs = JSON.parse(artisanneInfo);
-      const latestSheetLastUpdate = await this.loadSheetsLastUpdate();
+      if(artisanneInfo) {
+        const sheetInfoLs = JSON.parse(artisanneInfo);
+        const latestSheetLastUpdate = await this.loadSheetsLastUpdate();
 
-      if(latestSheetLastUpdate == sheetInfoLs.lastUpdate) {
-        this.sheetInfo = sheetInfoLs;
+        if(latestSheetLastUpdate == sheetInfoLs.lastUpdate) {
+          this.sheetInfo = sheetInfoLs;
+        } else {
+          await this.fetchAllSheetData();
+        }
       } else {
         await this.fetchAllSheetData();
       }
-    } else {
-      await this.fetchAllSheetData();
-    }
 
-    this.router.navigate(['/home'])
+      this.router.navigate(['/home'])
+    } catch {
+      await this.fetchAllSheetData();
+      this.inSiteStorage.artisanneData = this.sheetInfo;
+      
+      this.router.navigate(['/home']);
+    }
   }
 
   // CHECK SHEET LastUpdate

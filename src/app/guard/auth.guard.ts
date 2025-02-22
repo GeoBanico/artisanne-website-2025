@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
+import { InSiteStorageService } from '../service/in-site-storage.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,24 +14,29 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private inSiteStorage: InSiteStorageService
   ) {}
 
   async canActivate(): Promise<boolean> {
-    const artisanneInfo = localStorage.getItem(this.localStorageKey);
-
-    if(artisanneInfo) {
-      const sheetInfoLs = JSON.parse(artisanneInfo);
-      const latestSheetLastUpdate = await this.loadSheetsLastUpdate();
-
-      if(sheetInfoLs.lastUpdate != latestSheetLastUpdate) 
+    try {
+      const artisanneInfo = localStorage.getItem(this.localStorageKey);
+      if(artisanneInfo) {
+        const sheetInfoLs = JSON.parse(artisanneInfo);
+        const latestSheetLastUpdate = await this.loadSheetsLastUpdate();
+  
+        if(sheetInfoLs.lastUpdate != latestSheetLastUpdate) 
+          return this.redirectToLoading();
+      }
+      else {
         return this.redirectToLoading();
-    }
-    else {
+      }
+
+      return true;
+    } catch {
+      if(Object.keys(this.inSiteStorage.artisanneData).length > 0) return true;
       return this.redirectToLoading();
     }
-
-    return true;
   }
 
   redirectToLoading(): boolean {
